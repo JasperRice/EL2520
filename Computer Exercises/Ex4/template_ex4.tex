@@ -1,0 +1,81 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amsthm,amsfonts}
+\usepackage[demo]{graphicx} % REMOVE "demo" to include figures!
+
+\title{
+	Computer Exercise 4\\
+	EL2520 Control Theory and Practice
+}
+\author{
+	Osqulda Osquldasdotter\\
+	x@kth.se\\
+	YYMMDD-NNNN
+	\and
+	Oscar Oscarsson\\
+	y@kth.se\\
+	YYMMDD-NNNN
+}
+
+\newcommand{\image}[3][width=1.0\columnwidth]{
+	\begin{figure}[h!]
+		\centering
+	    \includegraphics[#1]{#2}
+		\caption{#3}
+		\label{fig:#2}
+	\end{figure}
+}
+
+\begin{document}
+	\maketitle
+
+	% Minimum phase case
+	\section*{Minimum phase case}
+
+	\subsection*{Dynamic decoupling}
+	The dynamic decoupling in exercise 3.2.1 is
+	\[
+		W(s) = \ldots
+	\]
+
+	\image{figure_1.pdf}{Bode diagram of $\tilde{G}(s)$ derived in exercise 3.2.1}
+	\image{figure_2.pdf}{Simulink plots from exercise 3.2.4}
+
+	Is the controller good?
+	\par\dotfill\par\dotfill\par
+	Are the output signals coupled?
+	\par\dotfill\par\dotfill
+
+	\subsection*{Glover-MacFarlane robust loop-shaping}
+
+	\image{figure_3.pdf}{Simulink plots from exercise 3.3.4}
+
+	What are the similarities and differences compared to the nominal design?
+	\par\dotfill\par\dotfill
+
+	% Non-minimum phase case
+	\section*{Non-minimum phase case}
+
+	\subsection*{Dynamic decoupling}
+	The dynamic decoupling in exercise 3.2.1 is
+	\[
+		W(s) = \ldots
+	\]
+
+	\image{figure_4.pdf}{Bode diagram of $\tilde{G}(s)$ derived in exercise 3.2.1}
+	\image{figure_5.pdf}{Simulink plots from exercise 3.2.4}
+
+	Is the controller good?
+	\par\dotfill\par\dotfill\par
+	Are the output signals coupled?
+	\par\dotfill\par\dotfill
+
+	\subsection*{Glover-MacFarlane robust loop-shaping}
+
+	\image{figure_6.pdf}{Simulink plots from exercise 3.3.4}
+
+	What are the similarities and differences compared to the nominal design?
+	\par\dotfill\par\dotfill
+\end{document}
