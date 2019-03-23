@@ -2,8 +2,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
-\usepackage{amsmath,amssymb,amsthm,amsfonts}
-\usepackage[demo]{graphicx} % REMOVE "demo" to include figures!
 
 \title{
 	Computer Exercise 1\\
@@ -14,35 +12,90 @@
 	sifanj@kth.se\\
 	961220-8232
 	\and
-	Oscar Oscarsson\\
+	Jiaqi Li\\
 	y@kth.se\\
 	YYMMDD-NNNN
 }
 
-\newcommand{\image}[3][width=1.0\columnwidth]{
+\newcommand{\image}[3]{
 	\begin{figure}[!ht]
 		\centering
-	    \includegraphics[#1]{#2}
+	    \includegraphics[width=#1\textwidth]{#2}
 		\caption{#3}
 		\label{fig:#2}
 	\end{figure}
 }
 
+% My packages
+\usepackage{algorithm, algorithmic, listings} % Code
+\usepackage{amsmath, amstext, amssymb, amsfonts, amsthm, dsfont, cancel, mathtools} % Math
+\usepackage{color, xcolor} % Color
+\usepackage{diagbox, tabularx} % Table
+\usepackage{enumerate} % List
+\usepackage{epsfig, epstopdf, graphicx, multicol, multirow, palatino, pgfplots, subcaption, tikz} % Image.
+\usepackage{fancybox}
+\usepackage{verbatim}
+
+\usepackage[font=footnotesize]{caption} % labelfont=bf
+\usepackage[font=scriptsize]{subcaption} % labelfont=bf
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\epstopdfsetup{outdir=./Figure/Converted/}
+\graphicspath{{./Figure/}}
+
+\makeatletter
+\def\input@path{{./Figure/}}
+\makeatother
+
+\pgfplotsset{compat=1.13}
+
 \begin{document}
-	\maketitle
+\maketitle
 
-	% Minimum phase case
-	\section*{Disturbance attenuation}
+\section{Exercises}
+\subsection{Basics}
+\image{0.75}{system}{$F$-controller, $G$-system, $r$-reference signal, $u$-control signal, $d$-disturbance signal, $y$-output signal, $n$-measurement noise.}
+\par Consider a system which can be modeled by the transfer function
+\begin{align*}
+	G(s) &= \frac{3(-s+1)}{(5s+1)(10s+1)}
+\end{align*}
+\begin{enumerate}
+	\item \textbf{Question:} Use the procedure introduced in the basic course to construct a lead-lag controller which eliminates the static control error for a step response in the reference signal.
+	\begin{align*}
+		F(s) &= K\underbrace{\frac{\tau_{D}s+1}{\beta\tau_{D}s+1}}_{\mathrm{Lead}}\underbrace{\frac{\tau_{I}s+1}{\tau_{I}s+\gamma}}_{\mathrm{Lag}}
+	\end{align*}
+	\par The phase margin should be $30^{\circ}$ at the cross-over frequency $\omega_{c}=0.4$ rad/s.
+	\par \textbf{Answer:} For the closed-loop system, in order to have a phase margin $\phi_{m}=30^{\circ}$, a cross-over frequency $\omega_{c}=0.4$ rad/s, and zero steady-state error for a step response in the reference signal, we consider a lead-lag controller $F$ shown above, where $K$, $\tau_{D}$, $\tau_{I}$, $\beta$, and $\gamma$ are parameters should be configured so that the closed-loop system satisfies the requirements.
+	\par For a step reference, the error is given by
+	\begin{align*}
+		E(s) = R(s) - Y(s) = \frac{1}{1+F(s)G(s)}R(s) = \frac{1}{1+F(s)G(s)}\frac{1}{s}
+	\end{align*}
+	\par The steady-state error then can be obtained
+	\begin{align*}
+		e(\infty) = \lim_{s\rightarrow 0} sE(s) = \frac{1}{1+F(0)G(0)} = \frac{\gamma}{\gamma + 3K}
+	\end{align*}
+	\par To get zero steady-state error, $e(\infty) = 0$, either $\gamma = 0$ or $K \rightarrow \infty$. So, $\gamma = 0$ is chosen here.
 	
-	How should the extra poles be chosen in exercise 4.2.1? Motivate! 
-	\par\dotfill\par\dotfill\par
+	\item \textbf{Question:} 
+	\par \textbf{Answer:} 
 
-	The feedback controller in exercise 4.2.2 is
-	\[
-		F_y(s) = \ldots
-	\]
 
-	\image{figure_1.pdf}{Step disturbance, exercise 4.2.2}
+\end{enumerate}
+
+% Minimum phase case
+\subsection{Disturbance attenuation}
+\par How should the extra poles be chosen in exercise 4.2.1? Motivate! 
+
+\par \dotfill
+
+\par \dotfill
+
+\par The feedback controller in exercise 4.2.2 is
+\begin{align*}
+	F_{y}(s) &= \ldots
+\end{align*}
+
+	\image{0.5}{system}{Step disturbance, exercise 4.2.2}
 	
 	The feedback controller and prefilter in exercise 4.2.3 is 
 	\[
@@ -51,12 +104,12 @@
 	\[
 	F_r(s) = \ldots
 	\]
-	\image{figure_2.pdf}{Reference step, exercise 4.2.3}
-	\image{figure_3.pdf}{Control signal for a disturbance or a reference step (plus a combination of these)}
+	\image{0.25}{system}{Reference step, exercise 4.2.3}
+	\image{0.25}{system}{Control signal for a disturbance or a reference step (plus a combination of these)}
 
 	Did you manage to fulfill all the specifications? If not, what do you think makes the specifications difficult to achieve?
 	\par\dotfill\par\dotfill\par
 	
-	\image{figure_4.pdf}{Bode diagram of sensitivity and complementary sensitivity functions, exercise 4.2.4}
+	\image{0.25}{system}{Bode diagram of sensitivity and complementary sensitivity functions, exercise 4.2.4}
 
 \end{document}
