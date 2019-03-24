@@ -13,8 +13,8 @@
 	961220-8232
 	\and
 	Jiaqi Li\\
-	y@kth.se\\
-	YYMMDD-NNNN
+	jiaqli@kth.se\\
+	960326-1711
 }
 
 \newcommand{\image}[3]{
@@ -55,6 +55,7 @@
 \section{Exercises}
 \subsection{Basics}
 \image{0.75}{system}{$F$-controller, $G$-system, $r$-reference signal, $u$-control signal, $d$-disturbance signal, $y$-output signal, $n$-measurement noise.}
+
 \par Consider a system which can be modeled by the transfer function
 \begin{align*}
 	G(s) &= \frac{3(-s+1)}{(5s+1)(10s+1)}
@@ -70,11 +71,17 @@
 	\begin{align*}
 		E(s) = R(s) - Y(s) = \frac{1}{1+F(s)G(s)}R(s) = \frac{1}{1+F(s)G(s)}\frac{1}{s}
 	\end{align*}
-	\par The steady-state error then can be obtained
+	\par The steady-state error then can be obtained using Final Value Theorem:
 	\begin{align*}
-		e(\infty) = \lim_{s\rightarrow 0} sE(s) = \frac{1}{1+F(0)G(0)} = \frac{\gamma}{\gamma + 3K}
+		e(\infty) = \lim_{t\rightarrow 0}e(t) = \lim_{s\rightarrow 0} sE(s) = \frac{1}{1+F(0)G(0)} = \frac{\gamma}{\gamma + 3K}
 	\end{align*}
 	\par To get zero steady-state error, $e(\infty) = 0$, either $\gamma = 0$ or $K \rightarrow \infty$. So, $\gamma = 0$ is chosen here.
+	\par Then 
+	
+	\par In all, we have our controller:
+	\begin{align*}
+		F(s) = 
+	\end{align*}
 	
 	\item \textbf{Question:} 
 	\par \textbf{Answer:} 
