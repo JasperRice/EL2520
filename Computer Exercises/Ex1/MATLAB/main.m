@@ -13,7 +13,7 @@ T = G*F/(1+G/F);
 figure
 bode(G)
 
-[m,p] = bode(G,1);
+[m,p] = bode(G,3.1415/2);
 
 [Gm,Pm,wp,wc] = margin(G*F);
 

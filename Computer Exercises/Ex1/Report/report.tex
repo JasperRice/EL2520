@@ -1,4 +1,4 @@
-\documentclass[a4paper,11pt]{article}
+\documentclass[11pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
@@ -28,7 +28,7 @@
 
 % My packages
 \usepackage{algorithm, algorithmic, listings} % Code
-\usepackage{amsmath, amstext, amssymb, amsfonts, amsthm, dsfont, cancel, gensymb, mathtools} % Math
+\usepackage{amsmath, amstext, amssymb, amsfonts, amsthm, dsfont, cancel, gensymb, mathtools, textcomp} % Math
 \usepackage{color, xcolor} % Color
 \usepackage{diagbox, tabularx} % Table
 \usepackage{enumerate} % List
@@ -36,8 +36,8 @@
 \usepackage{fancybox}
 \usepackage{verbatim}
 
-\usepackage[font=footnotesize]{caption} % labelfont=bf
-\usepackage[font=scriptsize]{subcaption} % labelfont=bf
+% \usepackage[font=footnotesize]{caption} % labelfont=bf
+% \usepackage[font=scriptsize]{subcaption} % labelfont=bf
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
 \epstopdfsetup{outdir=./Figure/Converted/}
@@ -88,18 +88,34 @@
 	\end{align*}
 	
 	\item \textbf{Question:} 
+	\par \textbf{Answer:}
+	
+	\item \textbf{Question:} 
 	\par \textbf{Answer:} 
-
-
 \end{enumerate}
 
-% Minimum phase case
+
 \subsection{Disturbance attenuation}
-\par How should the extra poles be chosen in exercise 4.2.1? Motivate! 
+\image{0.75}{system2}{$F_{r}$-prefilter, $F_{y}$-feedback controller, $G$-system, $G_{d}$-disturbance dynamics, $r$-reference signal, $u$-control signal, $d$-disturbance signal, $y$-measurement signal.}
 
-\par \dotfill
+\par The block diagram of the control system is given in fig~\ref{fig:system2}, where the transfer functions have been estimated to
+\begin{align*}
+	G(s) &= \frac{20}{(s+1)((\frac{s}{20})^{2}+\frac{s}{20}+1)} \\
+	G_{d}(s) &= \frac{10}{s+1}
+\end{align*}
 
-\par \dotfill
+%\par The exercise is about designing $F_{r}$ and $F_{y}$ in fig~\ref{fig:system2} such that:\begin{itemize}\item The rise time for a step change in the reference signal less than $0.2$ s and the overshoot is less than 10\%.\item For a step in the disturbance, we have $\vert y(t) \vert \leq 1$ $\forall t$ and $\vert y(t) \vert \leq 0.1$ for $t > 0.5$ s.\item Since the signals are scaled the control signal obeys $\vert u(t) \vert \leq 1$ $\forall t$.\end{itemize}
+
+\begin{enumerate}
+	\item \textbf{Question:} For which frequencies is control action needed? Control is needed at least at frequencies where $\vert G_{d}(j\omega) \vert > 1$ in order for disturbances to be attenuated. Therefore the cross-over frequency must be large enough. First, try to design $F_{y}$ such that $L(s) \approx \omega_{c} / s$ and plot the closed-loop transfer function from $d$ to $y$ and the corresponding step response. (A simple way to find $L(s) = \omega_{c} / s$ is to let $F_{y} = G^{-1} \omega_{c} / s$. However, this controller is not proper. A procedure to fix this is to ``add'' a number of poles in the controller such that it becomes proper. How should these poles be chosen?)
+	\par \textbf{Answer:} $\omega_{c} = 9.9473$ rad/s is the cross-over frequency of $G_{d}$ so that $G_{d}(j\omega_{c}) = 1$. And since control is needed at least at frequencies where $\vert G_{d}(j\omega) \vert > 1$, $\omega \in [0, 9.9473]$ rad/s is the frequencies which control action needed.
+	\par To design $F_{y}$ such that $L_{s} \approx \omega_{c} / s$, a naive approach can be first considered:
+	\begin{align*}
+		F_{y}^{*}(s) &= G^{-1}(s) \omega_{c} / s \\
+		&= \frac{(s+1)((\frac{s}{20})^{2}+\frac{s}{20}+1)\omega_{c}}{20s}
+	\end{align*}
+	so that $L(s) = F_{y}^{*}(s) G(s) = \omega_{c} / s$. However, the relative degree of $F_{y}^{*}$ is $-2$, meaning future information in time domain would be needed, which is impossible. So poles such be ``added'' to make the controller proper.
+\end{enumerate}
 
 \par The feedback controller in exercise 4.2.2 is
 \begin{align*}
