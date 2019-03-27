@@ -28,7 +28,7 @@
 
 % My packages
 \usepackage{algorithm, algorithmic, listings} % Code
-\usepackage{amsmath, amstext, amssymb, amsfonts, amsthm, dsfont, cancel, mathtools} % Math
+\usepackage{amsmath, amstext, amssymb, amsfonts, amsthm, dsfont, cancel, gensymb, mathtools} % Math
 \usepackage{color, xcolor} % Color
 \usepackage{diagbox, tabularx} % Table
 \usepackage{enumerate} % List
@@ -65,8 +65,8 @@
 	\begin{align*}
 		F(s) &= K\underbrace{\frac{\tau_{D}s+1}{\beta\tau_{D}s+1}}_{\mathrm{Lead}}\underbrace{\frac{\tau_{I}s+1}{\tau_{I}s+\gamma}}_{\mathrm{Lag}}
 	\end{align*}
-	\par The phase margin should be $30^{\circ}$ at the cross-over frequency $\omega_{c}=0.4$ rad/s.
-	\par \textbf{Answer:} For the closed-loop system, in order to have a phase margin $\phi_{m}=30^{\circ}$, a cross-over frequency $\omega_{c}=0.4$ rad/s, and zero steady-state error for a step response in the reference signal, we consider a lead-lag controller $F$ shown above, where $K$, $\tau_{D}$, $\tau_{I}$, $\beta$, and $\gamma$ are parameters should be configured so that the closed-loop system satisfies the requirements.
+	\par The phase margin should be $30\degree$ at the cross-over frequency $\omega_{c}=0.4$ rad/s.
+	\par \textbf{Answer:} For the closed-loop system, in order to have a phase margin $\phi_{m}=30\degree$, a cross-over frequency $\omega_{c}=0.4$ rad/s, and zero steady-state error for a step response in the reference signal, we consider a lead-lag controller $F$ shown above, where $K$, $\tau_{D}$, $\tau_{I}$, $\beta$, and $\gamma$ are parameters should be configured so that the closed-loop system satisfies the requirements.
 	\par For a step reference, the error is given by
 	\begin{align*}
 		E(s) = R(s) - Y(s) = \frac{1}{1+F(s)G(s)}R(s) = \frac{1}{1+F(s)G(s)}\frac{1}{s}
@@ -76,7 +76,11 @@
 		e(\infty) = \lim_{t\rightarrow 0}e(t) = \lim_{s\rightarrow 0} sE(s) = \frac{1}{1+F(0)G(0)} = \frac{\gamma}{\gamma + 3K}
 	\end{align*}
 	\par To get zero steady-state error, $e(\infty) = 0$, either $\gamma = 0$ or $K \rightarrow \infty$. So, $\gamma = 0$ is chosen here.
-	\par Then 
+	\par Then we can design the lag controller. To minimize the phase lag caused by the lag compensator, we would obtain:
+	\begin{align*}
+		\tau_{I} = \frac{10}{\omega_{c}} = \frac{10}{0.4} = 25
+	\end{align*}
+	then the lag component becomes to $F_{I}(s) = \frac{25s+1}{25s}$, and the phase margin of $F_{I}(s)G(s)$ is equal to 
 	
 	\par In all, we have our controller:
 	\begin{align*}
