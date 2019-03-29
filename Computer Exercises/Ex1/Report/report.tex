@@ -104,8 +104,6 @@
 	G_{d}(s) &= \frac{10}{s+1}
 \end{align*}
 
-%\par The exercise is about designing $F_{r}$ and $F_{y}$ in fig~\ref{fig:system2} such that:\begin{itemize}\item The rise time for a step change in the reference signal less than $0.2$ s and the overshoot is less than 10\%.\item For a step in the disturbance, we have $\vert y(t) \vert \leq 1$ $\forall t$ and $\vert y(t) \vert \leq 0.1$ for $t > 0.5$ s.\item Since the signals are scaled the control signal obeys $\vert u(t) \vert \leq 1$ $\forall t$.\end{itemize}
-
 \begin{enumerate}
 	\item \textbf{Question:} For which frequencies is control action needed? Control is needed at least at frequencies where $\vert G_{d}(j\omega) \vert > 1$ in order for disturbances to be attenuated. Therefore the cross-over frequency must be large enough. First, try to design $F_{y}$ such that $L(s) \approx \omega_{c} / s$ and plot the closed-loop transfer function from $d$ to $y$ and the corresponding step response. (A simple way to find $L(s) = \omega_{c} / s$ is to let $F_{y} = G^{-1} \omega_{c} / s$. However, this controller is not proper. A procedure to fix this is to ``add'' a number of poles in the controller such that it becomes proper. How should these poles be chosen?)
 	\par \textbf{Answer:} $\omega_{c} = 9.9473$ rad/s is the cross-over frequency of $G_{d}$ so that $G_{d}(j\omega_{c}) = 1$. And since control is needed at least at frequencies where $\vert G_{d}(j\omega) \vert > 1$, $\omega \in [0, 9.9473]$ rad/s is the frequencies which control action needed.
@@ -114,7 +112,18 @@
 		F_{y}^{*}(s) &= G^{-1}(s) \omega_{c} / s \\
 		&= \frac{(s+1)((\frac{s}{20})^{2}+\frac{s}{20}+1)\omega_{c}}{20s}
 	\end{align*}
-	so that $L(s) = F_{y}^{*}(s) G(s) = \omega_{c} / s$. However, the relative degree of $F_{y}^{*}$ is $-2$, meaning future information in time domain would be needed, which is impossible. So poles such be ``added'' to make the controller proper.
+	so that $L^{*}(s) = F_{y}^{*}(s) G(s) = \omega_{c} / s$. However, the relative degree of $F_{y}^{*}$ is $-2$, meaning future information in time domain would be needed, which is impossible. So poles such be ``added'' to make the controller proper.
+	\par To make the relative degree to be at least $0$, two poles, $p_{1}$ and $p_{2}$, are added such that
+	\begin{align*}
+		F_{y}(s) &= \frac{G^{-1}(s)\omega_{c}p_{1}p_{2}}{s(s+p_{1})(s+p_{2})} \\
+		&= \frac{(s+1)((\frac{s}{20})^{2}+\frac{s}{20}+1)\omega_{c}}{20s} \cdot \frac{p_{1}p_{2}}{(s+p_{1})(s+p_{2})}
+	\end{align*}
+	To simplify the addition of poles, poles are set such that $p_{1}=p_{2}=p$.
+	\par The open-loop transfer function becomes to $L(s) = \frac{p_{1}p_{2}\omega_{c}}{s(s+p_{1})(s+p_{2})}$. So the closed-loop transfer function from $d$ to $y$ is $G_{d_{cl}}=\frac{G_{d}}{1+L}$. The characteristics equation of $G_{d_{cl}}$ is
+	\begin{align*}
+		s^{4} + (2p+1)s^{3} + (2p+p^{2})s^{2} + p^{2}(w_{c}+1)s + p^{2}w_{c} = 0
+	\end{align*}
+	\par To make the system stable, the poles in the characteristics equation should be in the LHP. To satisfy such requirement, Routh-Hurwitz Stability Criterion is used to test the stability and find possible value for $p$. Thus, a sufficient condition is that $p$ should be positive and large enough. However if the value of poles added is too large, the step response would be too rapid and the amplitude of step response would also be too large. $p=100$ is finally chosen as a decision of the trade-off. The bode plot of the open-loop
 \end{enumerate}
 
 \par The feedback controller in exercise 4.2.2 is
