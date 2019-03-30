@@ -52,50 +52,9 @@
 \begin{document}
 \maketitle
 
-\section{Exercises}
-\subsection{Basics}
-\image{0.75}{system}{$F$-controller, $G$-system, $r$-reference signal, $u$-control signal, $d$-disturbance signal, $y$-output signal, $n$-measurement noise.}
+% \input{Basics.tex}
 
-\par Consider a system which can be modeled by the transfer function
-\begin{align*}
-	G(s) &= \frac{3(-s+1)}{(5s+1)(10s+1)}
-\end{align*}
-\begin{enumerate}
-	\item \textbf{Question:} Use the procedure introduced in the basic course to construct a lead-lag controller which eliminates the static control error for a step response in the reference signal.
-	\begin{align*}
-		F(s) &= K\underbrace{\frac{\tau_{D}s+1}{\beta\tau_{D}s+1}}_{\mathrm{Lead}}\underbrace{\frac{\tau_{I}s+1}{\tau_{I}s+\gamma}}_{\mathrm{Lag}}
-	\end{align*}
-	\par The phase margin should be $30\degree$ at the cross-over frequency $\omega_{c}=0.4$ rad/s.
-	\par \textbf{Answer:} For the closed-loop system, in order to have a phase margin $\phi_{m}=30\degree$, a cross-over frequency $\omega_{c}=0.4$ rad/s, and zero steady-state error for a step response in the reference signal, we consider a lead-lag controller $F$ shown above, where $K$, $\tau_{D}$, $\tau_{I}$, $\beta$, and $\gamma$ are parameters should be configured so that the closed-loop system satisfies the requirements.
-	\par For a step reference, the error is given by
-	\begin{align*}
-		E(s) = R(s) - Y(s) = \frac{1}{1+F(s)G(s)}R(s) = \frac{1}{1+F(s)G(s)}\frac{1}{s}
-	\end{align*}
-	\par The steady-state error then can be obtained using Final Value Theorem:
-	\begin{align*}
-		e(\infty) = \lim_{t\rightarrow 0}e(t) = \lim_{s\rightarrow 0} sE(s) = \frac{1}{1+F(0)G(0)} = \frac{\gamma}{\gamma + 3K}
-	\end{align*}
-	\par To get zero steady-state error, $e(\infty) = 0$, either $\gamma = 0$ or $K \rightarrow \infty$. So, $\gamma = 0$ is chosen here.
-	\par Then we can design the lag controller. To minimize the phase lag caused by the lag compensator, we would obtain:
-	\begin{align*}
-		\tau_{I} = \frac{10}{\omega_{c}} = \frac{10}{0.4} = 25
-	\end{align*}
-	then the lag component becomes to $F_{I}(s) = \frac{25s+1}{25s}$, and the phase margin of $F_{I}(s)G(s)$ is equal to 
-	
-	\par In all, we have our controller:
-	\begin{align*}
-		F(s) = 
-	\end{align*}
-	
-	\item \textbf{Question:} 
-	\par \textbf{Answer:}
-	
-	\item \textbf{Question:} 
-	\par \textbf{Answer:} 
-\end{enumerate}
-
-
-\subsection{Disturbance attenuation}
+\section{Disturbance attenuation}
 \image{0.75}{system2}{$F_{r}$-prefilter, $F_{y}$-feedback controller, $G$-system, $G_{d}$-disturbance dynamics, $r$-reference signal, $u$-control signal, $d$-disturbance signal, $y$-measurement signal.}
 
 \par The block diagram of the control system is given in fig~\ref{fig:system2}, where the transfer functions have been estimated to
@@ -104,7 +63,8 @@
 	G_{d}(s) &= \frac{10}{s+1}
 \end{align*}
 
-\begin{enumerate}
+\begin{enumerate}[(1)]
+	% 4.2.1
 	\item \textbf{Question:} For which frequencies is control action needed? Control is needed at least at frequencies where $\vert G_{d}(j\omega) \vert > 1$ in order for disturbances to be attenuated. Therefore the cross-over frequency must be large enough. First, try to design $F_{y}$ such that $L(s) \approx \omega_{c} / s$ and plot the closed-loop transfer function from $d$ to $y$ and the corresponding step response. (A simple way to find $L(s) = \omega_{c} / s$ is to let $F_{y} = G^{-1} \omega_{c} / s$. However, this controller is not proper. A procedure to fix this is to ``add'' a number of poles in the controller such that it becomes proper. How should these poles be chosen?)
 	\par \textbf{Answer:} $\omega_{c} = 9.9473$ rad/s is the cross-over frequency of $G_{d}$ so that $G_{d}(j\omega_{c}) = 1$. And since control is needed at least at frequencies where $\vert G_{d}(j\omega) \vert > 1$, $\omega \in [0, 9.9473]$ rad/s is the frequencies which control action needed.
 	\par To design $F_{y}$ such that $L_{s} \approx \omega_{c} / s$, a naive approach can be first considered:
@@ -123,15 +83,37 @@
 	\begin{align*}
 		s^{4} + (2p+1)s^{3} + (2p+p^{2})s^{2} + p^{2}(w_{c}+1)s + p^{2}w_{c} = 0
 	\end{align*}
-	\par To make the system stable, the poles in the characteristics equation should be in the LHP. To satisfy such requirement, Routh-Hurwitz Stability Criterion is used to test the stability and find possible value for $p$. Thus, a sufficient condition is that $p$ should be positive and large enough. However if the value of poles added is too large, the step response would be too rapid and the amplitude of step response would also be too large. $p=100$ is finally chosen as a decision of the trade-off. The bode plot of the open-loop
+	\par To make the system stable, the poles in the characteristics equation should be in the LHP. To satisfy such requirement, Routh-Hurwitz Stability Criterion is used to test the stability and find possible value for $p$. Thus, a sufficient condition is that $p$ should be positive and large enough. However if the value of poles added is too large, the step response would be too rapid and the amplitude of step response would also be too large. $p=100$ is finally chosen as a decision of the trade-off. The bode plot of the open-loop transfer function, the closed-loop transfer function and the step response of the closed-loop transfer function are illustrated in fig~\ref{fig:421_L}, \ref{fig:421_Gdcl}, and \ref{fig:421_Gdcl_Step}.
+	\image{0.7}{421_L}{Bode plot of the open-loop transfer function.}
+	\image{0.7}{421_Gdcl}{Bode plot of the closed-loop transfer function.}
+	\image{0.7}{421_Gdcl_Step}{The step response of the closed-loop transfer function from $d$ to $y$.}
+	
+	% 4.2.2
+	\item \textbf{Question:} Let us now reconstruct $F_{y}$ according to the instructions above. We will start with the disturbance attenuation. In a second step, adjustments can be made on $F_{r}$ to obtain the desired reference tracking properties. Start by choosing $F_{y}$ according to (1). Try different approximations of the product $G^{-1}G_{d}$ in the controller, and choose $\omega_{I}$ large enough so that step disturbances are attenuated according to the specifications.
+	\par \textbf{Answer:} By testing several values (1, 5, 10, 20) for $\omega_{I}$, the step response of disturbance satisfy the specification - ``For a step in the disturbance, we have $|y(t)| \leq 1$ $\forall t$ and $|y(t)| \leq 0.1$ for $t > 0.5 s$''. After further test, $\omega_{I} = 8$ is chosen, so that
+	\begin{align*}
+		F_{y}^{*} = \frac{s + 8}{s}G^{-1}G_{d}
+	\end{align*}
+	However, $F^{*}_{y}$ is improper since it needs information from future time domain. To solve this, two poles $p_{1}$ and $p_{2}$ are added, so that
+	\begin{align*}
+		F_{y} = \frac{p_{1}p_{2}}{(s+p_{1})(s+p_{2})}\cdot\frac{s + 8}{s}\cdot\frac{(\frac{s}{20})^2+\frac{s}{20}+1}{2}
+	\end{align*}
+	\par The poles should also fulfills Routh-Hurwitz Stability criterion for characteristics equation $1+GF_{y}=0$, so $p_1=p_2=100$ is chosen. The response of step disturbance is shown in fig~\ref{fig:422_Gdcl_Step}.
+	\image{0.7}{422_Gdcl_Step}{The step response of the closed-loop transfer function from $d$ to $y$.}
+	
+	% 4.2.3
+	\item \textbf{Question:} To fulfill the reference tracking specifications, we can combine lead lag control and prefiltering of the reference signal. First, try to add lead action to $F_y$ to reduce the overshoot. Then it can be necessary to add prefilter action to fulfill all specifications. Note that $F_r$ should be as simple as possible (why?). Also, remember to check the size of the control signal ($u = F_y F_r S_r - F_y G_d S_d$)! Typically a low pass filter is chosen, for example
+	\begin{align*}
+		F_{r} = \frac{1}{1+\tau s}
+	\end{align*}
+	\par \textit{Hint:} Consider the signals $r$ and $d$ independently.
+	\par \textbf{Answer:}
+	
+	% 4.2.4
+	\item \textbf{Question:} Finally, check that all specifications are fulfilled. Plot the bode diagrams of the sensitivity and complementary sensitivity functions.
+
+	\par \textbf{Answer:} 
 \end{enumerate}
-
-\par The feedback controller in exercise 4.2.2 is
-\begin{align*}
-	F_{y}(s) &= \ldots
-\end{align*}
-
-	\image{0.5}{system}{Step disturbance, exercise 4.2.2}
 	
 	The feedback controller and prefilter in exercise 4.2.3 is 
 	\[
