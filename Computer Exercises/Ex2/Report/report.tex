@@ -36,6 +36,7 @@
 \usepackage{fancybox}
 \usepackage{verbatim}
 
+
 % \usepackage[font=footnotesize]{caption} % labelfont=bf
 % \usepackage[font=scriptsize]{subcaption} % labelfont=bf
 \usepackage[margin=1in]{geometry}
@@ -50,89 +51,38 @@
 \pgfplotsset{compat=1.13}
 
 \begin{document}
-\maketitle
+	\maketitle
 
-% \input{Basics.tex}
+	% Minimum phase case
+	\section*{Minimum phase case}
 
-\section{Disturbance attenuation}
-\image{0.75}{system2}{$F_{r}$-prefilter, $F_{y}$-feedback controller, $G$-system, $G_{d}$-disturbance dynamics, $r$-reference signal, $u$-control signal, $d$-disturbance signal, $y$-measurement signal.}
-
-\par The block diagram of the control system is given in fig~\ref{fig:system2}, where the transfer functions have been estimated to
-\begin{align*}
-	G(s) &= \frac{20}{(s+1)((\frac{s}{20})^{2}+\frac{s}{20}+1)} \\
-	G_{d}(s) &= \frac{10}{s+1}
-\end{align*}
-
-\begin{enumerate}[(1)]
-	% 4.2.1
-	\item \textbf{Question:} For which frequencies is control action needed? Control is needed at least at frequencies where $\vert G_{d}(j\omega) \vert > 1$ in order for disturbances to be attenuated. Therefore the cross-over frequency must be large enough. First, try to design $F_{y}$ such that $L(s) \approx \omega_{c} / s$ and plot the closed-loop transfer function from $d$ to $y$ and the corresponding step response. (A simple way to find $L(s) = \omega_{c} / s$ is to let $F_{y} = G^{-1} \omega_{c} / s$. However, this controller is not proper. A procedure to fix this is to ``add'' a number of poles in the controller such that it becomes proper. How should these poles be chosen?)
-	\par \textbf{Answer:} $\omega_{c} = 9.9473 rad/s$ is the cross-over frequency of $G_{d}$ so that $G_{d}(j\omega_{c}) = 1$. And since control is needed at least at frequencies where $\vert G_{d}(j\omega) \vert > 1$, $\omega \in [0, 9.9473] rad/s$ is the frequencies which control action needed.
-	\par To design $F_{y}$ such that $L_{s} \approx \omega_{c} / s$, a naive approach can be first considered:
-	\begin{align*}
-		F_{y}^{*}(s) &= G^{-1}(s) \omega_{c} / s \\
-		&= \frac{(s+1)((\frac{s}{20})^{2}+\frac{s}{20}+1)\omega_{c}}{20s}
-	\end{align*}
-	so that $L^{*}(s) = F_{y}^{*}(s) G(s) = \omega_{c} / s$. However, the relative degree of $F_{y}^{*}$ is $-2$, meaning future information in time domain would be needed, which is impossible. So poles such be ``added'' to make the controller proper.
-	\par To make the relative degree to be at least $0$, two poles, $p_{1}$ and $p_{2}$, are added such that
-	\begin{align*}
-		F_{y}(s) &= \frac{G^{-1}(s)\omega_{c}p_{1}p_{2}}{s(s+p_{1})(s+p_{2})} \\
-		&= \frac{(s+1)((\frac{s}{20})^{2}+\frac{s}{20}+1)\omega_{c}}{20s} \cdot \frac{p_{1}p_{2}}{(s+p_{1})(s+p_{2})}
-	\end{align*}
-	To simplify the addition of poles, poles are set such that $p_{1}=p_{2}=p$.
-	\par The open-loop transfer function becomes to $L(s) = \frac{p_{1}p_{2}\omega_{c}}{s(s+p_{1})(s+p_{2})}$. So the closed-loop transfer function from $d$ to $y$ is $G_{d_{cl}}=\frac{G_{d}}{1+L}$. The characteristics equation of $G_{d_{cl}}$ is
-	\begin{align*}
-		s^{4} + (2p+1)s^{3} + (2p+p^{2})s^{2} + p^{2}(w_{c}+1)s + p^{2}w_{c} = 0
-	\end{align*}
-	\par To make the system stable, the poles in the characteristics equation should be in the LHP. To satisfy such requirement, Routh-Hurwitz Stability Criterion is used to test the stability and find possible value for $p$. Thus, a sufficient condition is that $p$ should be positive and large enough. However if the value of poles added is too large, the step response would be too rapid and the amplitude of step response would also be too large. $p=100$ is finally chosen as a decision of the trade-off. The bode plot of the open-loop transfer function, the closed-loop transfer function and the step response of the closed-loop transfer function are illustrated in fig~\ref{fig:421_L}, \ref{fig:421_Gdcl}, and \ref{fig:421_Gdcl_Step}.
-	\image{0.7}{421_L}{Bode plot of the open-loop transfer function.}
-	\image{0.7}{421_Gdcl}{Bode plot of the closed-loop transfer function.}
-	\image{0.7}{421_Gdcl_Step}{The step response of the closed-loop transfer function from $d$ to $y$.}
-	
-	% 4.2.2
-	\item \textbf{Question:} Let us now reconstruct $F_{y}$ according to the instructions above. We will start with the disturbance attenuation. In a second step, adjustments can be made on $F_{r}$ to obtain the desired reference tracking properties. Start by choosing $F_{y}$ according to (1). Try different approximations of the product $G^{-1}G_{d}$ in the controller, and choose $\omega_{I}$ large enough so that step disturbances are attenuated according to the specifications.
-	\par \textbf{Answer:} By testing several values (1, 5, 10, 20) for $\omega_{I}$, the step response of disturbance satisfy the specification - ``For a step in the disturbance, we have $|y(t)| \leq 1$ $\forall t$ and $|y(t)| \leq 0.1$ for $t > 0.5 s$''. After further test, $\omega_{I} = 8$ is chosen, so that
-	\begin{align*}
-		F_{y}^{*} = \frac{s + 8}{s}G^{-1}G_{d}
-	\end{align*}
-	However, $F^{*}_{y}$ is improper since it needs information from future time domain. To solve this, two poles $p_{1}$ and $p_{2}$ are added, so that
-	\begin{align*}
-		F_{y} = \frac{p_{1}p_{2}}{(s+p_{1})(s+p_{2})}\cdot\frac{s + 8}{s}\cdot\frac{(\frac{s}{20})^2+\frac{s}{20}+1}{2}
-	\end{align*}
-	\par The poles should also fulfills Routh-Hurwitz Stability criterion for characteristics equation $1+GF_{y}=0$, so $p_1=p_2=100$ is chosen. The response of step disturbance is shown in fig~\ref{fig:422_Gdcl_Step}.
-	\image{0.7}{422_Gdcl_Step}{The step response of the closed-loop transfer function from $d$ to $y$.}
-	
-	% 4.2.3
-	\item \textbf{Question:} To fulfill the reference tracking specifications, we can combine lead lag control and prefiltering of the reference signal. First, try to add lead action to $F_y$ to reduce the overshoot. Then it can be necessary to add prefilter action to fulfill all specifications. Note that $F_r$ should be as simple as possible (why?). Also, remember to check the size of the control signal ($u = F_y F_r S_r - F_y G_d S_d$)! Typically a low pass filter is chosen, for example
-	\begin{align*}
-		F_{r} = \frac{1}{1+\tau s}
-	\end{align*}
-	\par \textit{Hint:} Consider the signals $r$ and $d$ independently.
-	\par \textbf{Answer:} Since there's no specific requirement for lead compensator, the lead compensator is assumed to have $15\degree$ phase margin at crossover frequency $\omega_{c} = 15 rad/s$ (should be larger that $9.9473 rad/s$).
-	\begin{align*}
-		& \sin(\phi_{lead}) = \frac{1 - \beta}{1 + \beta} \Rightarrow \beta = 0.5888 \Rightarrow \tau_{D} = \frac{1}{\sqrt{\beta}\omega_{c}} = 0.0869 \\
-		& |F_{lead}(j\omega_{c})\times F_{y}(j\omega_{c})\times G(j\omega_{c})| = 1 \Rightarrow K = 1.0407
-	\end{align*}
-	\par If the prefilter is too complex, it could have some effects on system behaviour such as delay, change of rising time and so on.
-	\par Since the crossover frequency $\omega_{c} = 9.9473 rad/s$, the prefilter $F_{r}=\frac{1}{1+0.1s}$ is assumed, which has a low pass frequency at $\omega = 10 rad/s$. The step response of the reference is shown in fig~
-	
-	% 4.2.4
-	\item \textbf{Question:} Finally, check that all specifications are fulfilled. Plot the bode diagrams of the sensitivity and complementary sensitivity functions.
-	\par \textbf{Answer:} 
-\end{enumerate}
-	
-	The feedback controller and prefilter in exercise 4.2.3 is 
+	The controller is given by
 	\[
-	F_y(s) = \ldots
+		F(s) = \ldots
 	\]
-	\[
-	F_r(s) = \ldots
-	\]
-	\image{0.25}{system}{Reference step, exercise 4.2.3}
-	\image{0.25}{system}{Control signal for a disturbance or a reference step (plus a combination of these)}
 
-	Did you manage to fulfill all the specifications? If not, what do you think makes the specifications difficult to achieve?
+	\image{0.8}{3231}{Simulink plots from exercise 3.2.3}
+	\image{0.8}{321}{Bode diagram of the loop gain $L(s)$ from exercise 3.2.1}
+
+	Is the controller good?
 	\par\dotfill\par\dotfill\par
-	
-	\image{0.25}{system}{Bode diagram of sensitivity and complementary sensitivity functions, exercise 4.2.4}
+	Are the output signals coupled?
+	\par\dotfill\par\dotfill
+
+	% Non-minimum phase case
+	\section*{Non-minimum phase case}
+
+	The controller is given by
+	\[
+		F(s) = \ldots
+	\]
+
+	\image{0.8}{3232}{Simulink plots from exercise 3.2.3}
+	\image{0.8}{321}{Bode diagram of the loop gain $L(s)$ from exercise 3.2.1}
+
+	Is the controller good?
+	\par\dotfill\par\dotfill\par
+	Are the output signals coupled?
+	\par\dotfill\par\dotfill
 
 \end{document}
