@@ -14,12 +14,12 @@
 %       Parameters to edit
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-u_max=inf;              %maximum control signal
-sin_dist_freq=100*pi;   %frequency of sinusoid disturbance (rad/s)
-sin_dist_amp=1;         %amplitude of sinusoid disturbance
-white_noise_var=0;      %variance of white noise disturbance
-step_size=0;            %amplitude of step reference
-sim_time=10;            %simulation time (s)
+u_max=inf;              % maximum control signal
+sin_dist_freq=100*pi;   % frequency of sinusoid disturbance (rad/s)
+sin_dist_amp=1;         % amplitude of sinusoid disturbance
+white_noise_var=0;      % variance of white noise disturbance
+step_size=0;            % amplitude of step reference
+sim_time=10;            % simulation time (s)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
