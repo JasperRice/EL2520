@@ -69,7 +69,15 @@
 		\par The rate between the disturbance amplitude and the output oscillations is $4.543\times 10^{-4}$.
 
 		\item What amplification is required for a P-controller to get the same performance, and what are the disadvantages of such a controller?
-		\par 
+		\par Since $|FG| \gg 1$, we have:
+			\begin{align*}
+				|S| &\approx |FG|^{-1} \\
+				&= |FG(i 100\pi)|^{-1} \\
+				&= (0.0920|F|)^{-1} \\
+				&= 4.543\times 10^{-4}
+			\end{align*}
+		\par So, $|F|=\frac{1}{0.0920\times4.543\times 10^{-4}}=2.3926\times10^{4}$, which means the approximate amplification for a P-controller to get the same rate is $2.3926\times10^{4}$.
+		\par The disadvantage of such a P-controller is that it's not feasible to get controllers with such big amplification.
 	\end{itemize}
 
 
