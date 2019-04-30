@@ -62,11 +62,11 @@
 		&= \frac{1}{(s+0.5+i\sqrt{(100\pi)^{2}-0.5^{2}})(s+0.5-i\sqrt{(100\pi)^{2}-0.5^{2}})}
 	\end{align*}
 
-	\image{0.85}{41}{Simulation results with system $G$, using $W_S$.}
+	\image{0.75}{suppressionOfDisturbanceResult}{Simulation results with system $G$, using $W_S$.}
 	
 	\begin{itemize}
 		\item How much is the disturbance damped on the output?
-		\par The rate between the disturbance amplitude and the output oscillations is $4.543\times 10^{-4}$.
+		\par The rate between the output oscillations and the disturbance amplitude is $4.543\times 10^{-4}$.
 
 		\item What amplification is required for a P-controller to get the same performance, and what are the disadvantages of such a controller?
 		\par Since $|FG| \gg 1$, we have:
@@ -89,34 +89,33 @@
 			\begin{align*}
 				|T(i\omega)\cdot\Delta_{G}(i\omega)| < 1 \Leftrightarrow |T(i\omega)| < |\Delta^{-1}_{G}(i\omega)|
 			\end{align*}
-		\par Also, according to eq. (5), to ensure $|T(i\omega)| \leq \gamma |W^{-1}_{T}(i\omega)|$ fulfilled, we let $|\Delta^{-1}_{G}(i\omega)| \leq \gamma |W^{-1}_{T}(i\omega)|$, thus obtain $ |W_{T}(i\omega)| \leq \gamma |\Delta_{G}(i\omega)| $.
-		\par The weights are
+		\par Also, according to eq. (5), to ensure $|T(i\omega)| \leq \gamma |W^{-1}_{T}(i\omega)|$ fulfilled, we let $|\Delta^{-1}_{G}(i\omega)| \leq \gamma |W^{-1}_{T}(i\omega)|$, thus obtain $ |W_{T}(i\omega)| \leq \gamma |\Delta_{G}(i\omega)| $. So, we can choose $ |W_{T}(i\omega)| = \gamma |\Delta_{G}(i\omega)| $. Setting $\gamma$ to $10^{-4}$, the weights are
 			\begin{align*}
 				W_S(s) &= \frac{1}{(s+0.5+i\sqrt{(100\pi)^{2}-0.5^{2}})(s+0.5-i\sqrt{(100\pi)^{2}-0.5^{2}})} \\
-				W_T(s) &= ???\frac{3}{s + 2}
+				W_T(s) &= 10^{-4}\frac{3}{s + 2}
 			\end{align*}
 			
 		\item Is the small gain theorem fulfilled?
-		\par According to fig~\ref{fig:423},
-			\image{0.85}{423}{Bode diagram showing that the small gain theorem is satisfied.}
-			\image{0.85}{422}{Simulation results with system $G_0$, using $W_S$ and $W_T$.}
+		\par According to fig~\ref{fig:robustnessBode}, small gain theorem $|T(i\omega)| < |\Delta^{-1}_{G}(i\omega)|$ is always fulfilled.
+			\image{0.75}{robustnessBode}{Bode diagram showing that the small gain theorem is satisfied.}
+			\image{0.75}{robustnessResult}{Simulation results with system $G_0$, using $W_S$ and $W_T$.}
 		
-		\item Compare the results to the previous simulation
+		\item Compare the results to the previous simulation, which is illustrated in fig~\ref{fig:suppressionOfDisturbanceResult}, the rate between the output oscillations and the disturbance amplitude increases to $3.743\times 10^{-3}$.
 	\end{itemize}
+
 
 
 %%%%%%%%%% Control signal %%%%%%%%%%
 \section*{Control signal}
 \par The weights are
 	\begin{align*}
-		W_S(s) &= \ldots\\
-		W_T(s) &= \ldots\\
-		W_U(s) &= \ldots
+		W_S(s) &= \frac{1}{(s+0.5+i\sqrt{(100\pi)^{2}-0.5^{2}})(s+0.5-i\sqrt{(100\pi)^{2}-0.5^{2}})} \\
+		W_T(s) &= 10^{-4}\frac{3}{s + 2} \\
+		W_U(s) &= \frac{0.5}{s + 2}
 	\end{align*}
 
-	\image{0.85}{431}{Simulation results with system $G_0$, using $W_S$, $W_T$ and $W_U$.}
+	\image{1}{controlSignalResult}{Simulation results with system $G_0$, using $W_S$, $W_T$ and $W_U$.}
 
-\par Compare the results to the previous simulations
-\par\dotfill\par\dotfill\par
+\par Compare the results to the previous simulations, ????
 
 \end{document}
