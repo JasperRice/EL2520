@@ -62,7 +62,7 @@
 		&= \frac{1}{(s+0.5+i\sqrt{(100\pi)^{2}-0.5^{2}})(s+0.5-i\sqrt{(100\pi)^{2}-0.5^{2}})}
 	\end{align*}
 
-	\image{1}{41}{Simulation results with system $G$, using $W_S$.}
+	\image{0.85}{41}{Simulation results with system $G$, using $W_S$.}
 	
 	\begin{itemize}
 		\item How much is the disturbance damped on the output?
@@ -83,23 +83,26 @@
 
 %%%%%%%%%% Robustness %%%%%%%%%%
 \section*{Robustness}
-\par What is the condition on $T$ to guarantee stability according to the small gain theorem, and how can it be used to choose the weight $W_T$?
-\par\dotfill\par\dotfill\par
-
-\par The weights are
-	\begin{align*}
-		W_S(s) &= \ldots\\
-		W_T(s) &= \ldots
-	\end{align*}
-
-\par Is the small gain theorem fulfilled?
-\par\dotfill\par\dotfill\par
-
-	\image{0.8}{41}{Bode diagram showing that the small gain theorem is satisfied.}
-	\image{0.8}{41}{Simulation results with system $G_0$, using $W_S$ and $W_T$.}
-
-\par Compare the results to the previous simulation
-\par\dotfill\par\dotfill\par
+	\begin{itemize}
+		\item What is the condition on $T$ to guarantee stability according to the small gain theorem, and how can it be used to choose the weight $W_T$?
+		\par Since $G_{0}(s) = G(s)(1 + \Delta_{G}(s))$, $\Delta_{G}(s) = -\frac{3}{s+2}$ is obtained. According to the small gain theorem,
+			\begin{align*}
+				|T(i\omega)\cdot\Delta_{G}(i\omega)| < 1 \Leftrightarrow |T(i\omega)| < |\Delta^{-1}_{G}(i\omega)|
+			\end{align*}
+		\par Also, according to eq. (5), to ensure $|T(i\omega)| \leq \gamma |W^{-1}_{T}(i\omega)|$ fulfilled, we let $|\Delta^{-1}_{G}(i\omega)| \leq \gamma |W^{-1}_{T}(i\omega)|$, thus obtain $ |W_{T}(i\omega)| \leq \gamma |\Delta_{G}(i\omega)| $.
+		\par The weights are
+			\begin{align*}
+				W_S(s) &= \frac{1}{(s+0.5+i\sqrt{(100\pi)^{2}-0.5^{2}})(s+0.5-i\sqrt{(100\pi)^{2}-0.5^{2}})} \\
+				W_T(s) &= ???\frac{3}{s + 2}
+			\end{align*}
+			
+		\item Is the small gain theorem fulfilled?
+		\par According to fig~\ref{fig:423},
+			\image{0.85}{423}{Bode diagram showing that the small gain theorem is satisfied.}
+			\image{0.85}{422}{Simulation results with system $G_0$, using $W_S$ and $W_T$.}
+		
+		\item Compare the results to the previous simulation
+	\end{itemize}
 
 
 %%%%%%%%%% Control signal %%%%%%%%%%
@@ -111,7 +114,7 @@
 		W_U(s) &= \ldots
 	\end{align*}
 
-	\image{0.8}{41}{Simulation results with system $G_0$, using $W_S$, $W_T$ and $W_U$.}
+	\image{0.85}{431}{Simulation results with system $G_0$, using $W_S$, $W_T$ and $W_U$.}
 
 \par Compare the results to the previous simulations
 \par\dotfill\par\dotfill\par
