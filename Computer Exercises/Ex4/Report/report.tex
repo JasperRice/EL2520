@@ -1,0 +1,102 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[demo]{graphicx}
+
+\title{
+	Computer Exercise 4\\
+	EL2520 Control Theory and Practice
+}
+\author{
+	Jiaqi Li\\
+	jiaqli@kth.se\\
+	960326-1711
+	\and
+	Sifan Jiang\\
+	sifanj@kth.se\\
+	961220-8232
+}
+
+\newcommand{\image}[3]{
+	\begin{figure}[!ht]
+		\centering
+	    \includegraphics[width=#1\textwidth]{#2}
+		\caption{#3}
+		\label{fig:#2}
+	\end{figure}
+}
+
+% My packages
+\usepackage{algorithm, algorithmic, listings} % Code
+\usepackage{amsmath, amstext, amssymb, amsfonts, amsthm, dsfont, cancel, gensymb, mathtools, textcomp} % Math
+\usepackage{color, xcolor} % Color
+\usepackage{diagbox, tabularx} % Table
+\usepackage{enumerate} % List
+\usepackage{epsfig, epstopdf, graphicx, multicol, multirow, palatino, pgfplots, subcaption, tikz} % Image.
+\usepackage{fancybox}
+\usepackage{verbatim}
+
+\usepackage[font=footnotesize]{caption} % labelfont=bf
+\usepackage[font=scriptsize]{subcaption} % labelfont=bf
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\epstopdfsetup{outdir=./Figure/Converted/}
+\graphicspath{{./Figure/}}
+
+\makeatletter
+\def\input@path{{./Figure/}}
+\makeatother
+
+\pgfplotsset{compat=1.13}
+
+
+\begin{document}
+\maketitle
+
+
+%%%%%%%%%%%%%%% Minimum phase case %%%%%%%%%%%%%%%
+\section*{Minimum phase case}
+\subsection*{Dynamic decoupling}
+\par The dynamic decoupling in exercise 3.2.1 is
+	\begin{align*}
+		W(s) = \ldots
+	\end{align*}
+	
+	\image{0.5}{figure_1.pdf}{Bode diagram of $\tilde{G}(s)$ derived in exercise 3.2.1}
+	\image{0.5}{figure_2.pdf}{Simulink plots from exercise 3.2.4}
+
+	\begin{itemize}
+		\item Is the controller good?
+		\item Are the output signals coupled?
+	\end{itemize}
+
+\subsection*{Glover-MacFarlane robust loop-shaping}
+	\image{0.5}{figure_3.pdf}{Simulink plots from exercise 3.3.4}
+
+\par What are the similarities and differences compared to the nominal design?
+	\par\dotfill\par\dotfill
+
+	
+%%%%%%%%%%%%%%% Non-minimum phase case %%%%%%%%%%%%%%%
+\section*{Non-minimum phase case}
+\subsection*{Dynamic decoupling}
+\par The dynamic decoupling in exercise 3.2.1 is
+	\begin{align*}
+		W(s) = \ldots
+	\end{align*}
+
+	\image{0.5}{figure_4.pdf}{Bode diagram of $\tilde{G}(s)$ derived in exercise 3.2.1}
+	\image{0.5}{figure_5.pdf}{Simulink plots from exercise 3.2.4}
+
+	\begin{itemize}
+		\item Is the controller good?
+		\item Are the output signals coupled?
+	\end{itemize}
+
+\subsection*{Glover-MacFarlane robust loop-shaping}
+	\image{0.5}{figure_6.pdf}{Simulink plots from exercise 3.3.4}
+
+\par What are the similarities and differences compared to the nominal design?
+	\par\dotfill\par\dotfill
+\end{document}
