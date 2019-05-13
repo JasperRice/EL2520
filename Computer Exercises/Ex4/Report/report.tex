@@ -2,7 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
-\usepackage[demo]{graphicx}
+% \usepackage[demo]{graphicx}
 
 \title{
 	Computer Exercise 4\\
@@ -60,19 +60,22 @@
 \subsection*{Dynamic decoupling}
 \par The dynamic decoupling in exercise 3.2.1 is
 	\begin{align*}
-		W(s) = \ldots
+		W(s) = \begin{bmatrix} 1 & \dfrac{-0.01336}{s+0.02572} \\ \dfrac{-0.01476}{s+0.0213} & 1 \end{bmatrix}
 	\end{align*}
 	
-	\image{0.5}{figure_1.pdf}{Bode diagram of $\tilde{G}(s)$ derived in exercise 3.2.1}
-	\image{0.5}{figure_2.pdf}{Simulink plots from exercise 3.2.4}
+	\image{0.95}{321}{Bode diagram of $\tilde{G}(s)$ derived in exercise 3.2.1}
+	\image{0.95}{324}{Simulink plots from exercise 3.2.4}
 
 	\begin{itemize}
 		\item Is the controller good?
+		\par In minimum phase case, $u_{1}$ and $u_{2}$ should be paired with $y_{1}$ and $y_{2}$ respectively. From fig~\ref{fig:321}, $u_{1}$ is attenuated for $y_{2}$ (which is $\tilde{g}_{1,2}$). Same attenuation for $u_{2}$ respect to $y_{1}$ (which is $\tilde{g}_{2,1}$). So, the controller is good.
+		
 		\item Are the output signals coupled?
+		\par From fig~\ref{fig:324} we can see the step responses of the closed-loop system and it is obvious that, $y_{1}$ is influenced by $u_{1}$ and $y_{2}$ is influenced by $u_{2}$. So the output signals are coupled.
 	\end{itemize}
 
 \subsection*{Glover-MacFarlane robust loop-shaping}
-	\image{0.5}{figure_3.pdf}{Simulink plots from exercise 3.3.4}
+	\image{0.5}{321}{Simulink plots from exercise 3.3.4}
 
 \par What are the similarities and differences compared to the nominal design?
 	\par\dotfill\par\dotfill
@@ -86,8 +89,8 @@
 		W(s) = \ldots
 	\end{align*}
 
-	\image{0.5}{figure_4.pdf}{Bode diagram of $\tilde{G}(s)$ derived in exercise 3.2.1}
-	\image{0.5}{figure_5.pdf}{Simulink plots from exercise 3.2.4}
+	\image{0.5}{321}{Bode diagram of $\tilde{G}(s)$ derived in exercise 3.2.1}
+	\image{0.5}{321}{Simulink plots from exercise 3.2.4}
 
 	\begin{itemize}
 		\item Is the controller good?
@@ -95,7 +98,7 @@
 	\end{itemize}
 
 \subsection*{Glover-MacFarlane robust loop-shaping}
-	\image{0.5}{figure_6.pdf}{Simulink plots from exercise 3.3.4}
+	\image{0.5}{321}{Simulink plots from exercise 3.3.4}
 
 \par What are the similarities and differences compared to the nominal design?
 	\par\dotfill\par\dotfill
