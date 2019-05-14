@@ -63,8 +63,8 @@
 		W(s) = \begin{bmatrix} 1 & \dfrac{-0.01336}{s+0.02572} \\ \dfrac{-0.01476}{s+0.0213} & 1 \end{bmatrix}
 	\end{align*}
 	
-	\image{0.95}{321}{Bode diagram of $\tilde{G}(s)$ derived in exercise 3.2.1}
-	\image{0.95}{324}{Simulink plots from exercise 3.2.4}
+	\image{0.75}{321}{Bode diagram of $\tilde{G}(s)$ derived in exercise 3.2.1}
+	\image{0.75}{324}{Simulink plots from exercise 3.2.4}
 
 	\begin{itemize}
 		\item Is the controller good?
@@ -75,10 +75,13 @@
 	\end{itemize}
 
 \subsection*{Glover-MacFarlane robust loop-shaping}
-	\image{0.5}{321}{Simulink plots from exercise 3.3.4}
+	\image{0.75}{334}{Simulink plots from exercise 3.3.4}
 
-\par What are the similarities and differences compared to the nominal design?
-	\par\dotfill\par\dotfill
+	\begin{itemize}
+		\item What are the similarities and differences compared to the nominal design?
+		\par From fig~\ref{fig:334}, we can see that the overshoot of response is lowered. However, in our case, the output $y_{1}$ is slightly influenced by input $u_{2}$, meaning the Glover-McFarlane doesn't as good decoupling as the nominal design, but it really improve the robustness.
+	\end{itemize}
+
 
 	
 %%%%%%%%%%%%%%% Non-minimum phase case %%%%%%%%%%%%%%%
@@ -86,20 +89,26 @@
 \subsection*{Dynamic decoupling}
 \par The dynamic decoupling in exercise 3.2.1 is
 	\begin{align*}
-		W(s) = \ldots
+		W(s) = \begin{bmatrix} \dfrac{-1.143s - 0.1039}{s + 0.2} & \dfrac{0.2}{s + 0.2} \\ & \\ \dfrac{0.2}{s + 0.2} & \dfrac{-1.615s - 0.1386}{s + 0.2} \end{bmatrix}
 	\end{align*}
 
-	\image{0.5}{321}{Bode diagram of $\tilde{G}(s)$ derived in exercise 3.2.1}
-	\image{0.5}{321}{Simulink plots from exercise 3.2.4}
+	\image{0.75}{m321}{Bode diagram of $\tilde{G}(s)$ derived in exercise 3.2.1}
+	\image{0.75}{m324}{Simulink plots from exercise 3.2.4}
 
 	\begin{itemize}
 		\item Is the controller good?
+		\par In non-minimum phase case, $u_{1}$ and $u_{2}$ should be paired with $y_{2}$ and $y_{1}$ respectively. From fig~\ref{fig:m321}, $u_{1}$ is attenuated for $y_{1}$. Same attenuation for $u_{1}$ respect to $y_{1}$. Also, from fig~\ref{fig:m324}, the overshoot seems to be small. In all, the controller is good.
+		
 		\item Are the output signals coupled?
+		\par From fig~\ref{fig:m324}, it is obvious that $y_{2}$ is coupled with $u_{1}$ and $y_{1}$ is coupled with $u_{2}$. So, the output signals are coupled.
 	\end{itemize}
 
 \subsection*{Glover-MacFarlane robust loop-shaping}
-	\image{0.5}{321}{Simulink plots from exercise 3.3.4}
-
-\par What are the similarities and differences compared to the nominal design?
-	\par\dotfill\par\dotfill
+	\image{0.75}{m334}{Simulink plots from exercise 3.3.4}
+	
+	\begin{itemize}
+		\item What are the similarities and differences compared to the nominal design?
+		\par Compare fig~\ref{fig:m324} and \ref{fig:m334}, we can see that the overshoot in Glover-MacFarlane is eliminated and the ``overshoot'' below $0$ is reduced as well. So, the Glover-MacFarlane method gives more robust loop-shaping. Also, the output signals are maintained to be coupled well.
+	\end{itemize}
+	
 \end{document}
